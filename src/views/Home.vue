@@ -7,10 +7,13 @@
     <v-layout wrap>
       <blog-item-component v-for="blog in blogs" :key="`blog-` + blog.id" :blog="blog"></blog-item-component>
     </v-layout>
+    <button @click="increment(10)">Tambah</button>
+    {{ count }}
   </v-container>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
 import BlogItemComponent from "../components/BlogItemComponent.vue";
 export default {
   data: () => ({
@@ -20,19 +23,41 @@ export default {
   components: {
     "blog-item-component": BlogItemComponent,
   },
+  computed: {
+    //count() {
+    //return this.$store.getters.count;
+    // },
+
+    ...mapGetters({
+      count: "count",
+    }),
+  },
+  methods: {
+    go() {
+      const config = {
+        method: "GET",
+        url: this.apiDomain + "api/v2/blog/random/6",
+      };
+      this.axios(config)
+        .then((response) => {
+          let { blogs } = response.data;
+          this.blogs = blogs;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // increment(payload) {
+    //    this.$store.commit("increment", payload);
+    //    },
+
+    ...mapMutations({
+      increment: "increment",
+    }),
+  },
   created() {
-    const config = {
-      method: "GET",
-      url: this.apiDomain + "api/v2/blog/random/6",
-    };
-    this.axios(config)
-      .then((response) => {
-        let { blogs } = response.data;
-        this.blogs = blogs;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log(this.$store.state.count);
+    this.go();
   },
 };
 </script>
