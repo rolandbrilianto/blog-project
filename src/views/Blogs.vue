@@ -13,7 +13,7 @@
 import BlogItemComponent from "../components/BlogItemComponent.vue";
 export default {
   data: () => ({
-    apiDomain: "http://demo-api-vue.sanbercloud.com/",
+    apiDomain: "http://demo-api-vue.sanbercloud.com",
     blogs: [],
     page: 0,
     lengthPage: 0,
@@ -27,7 +27,7 @@ export default {
     go() {
       const config = {
         method: "get",
-        url: this.apiDomain + "api/v2/blog?page=" + this.page,
+        url: `${this.apiDomain}/api/v2/blog?page=${this.page}`,
       };
       this.axios(config)
         .then((response) => {
