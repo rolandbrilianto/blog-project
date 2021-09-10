@@ -1,21 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import counter from "./counter";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    count: 0,
+  modules: {
+    counter,
   },
-  getters: {
-    count: (state) => {
-      return state.count;
-    },
-  },
-  mutations: {
-    increment: (state, payload) => {
-      state.count += payload;
-    },
-  },
-  actions: {},
 });

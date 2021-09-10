@@ -24,12 +24,8 @@ export default {
     "blog-item-component": BlogItemComponent,
   },
   computed: {
-    //count() {
-    //return this.$store.getters.count;
-    // },
-
     ...mapGetters({
-      count: "count",
+      count: "counter/count",
     }),
   },
   methods: {
@@ -47,16 +43,11 @@ export default {
           console.log(error);
         });
     },
-    // increment(payload) {
-    //    this.$store.commit("increment", payload);
-    //    },
-
     ...mapMutations({
-      increment: "increment",
+      increment: "counter/increment",
     }),
   },
   created() {
-    console.log(this.$store.state.count);
     this.go();
   },
 };
